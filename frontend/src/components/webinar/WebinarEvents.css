@@ -855,6 +855,32 @@
   flex-direction: column;
 }
 
+.webinar-events-page .webinar-status-badge {
+  align-self: flex-end;
+  border-radius: 999px;
+  color: #fff;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  margin-bottom: 8px;
+  padding: 8px 12px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.webinar-events-page .webinar-status-not-started {
+  background: #dc2626;
+}
+
+.webinar-events-page .webinar-status-postponed {
+  background: #f97316;
+}
+
+.webinar-events-page .webinar-status-completed {
+  background: #16a34a;
+}
+
 .webinar-events-page .webinar-card-title {
   color: #4b3f91;
   font-size: 1.7rem;

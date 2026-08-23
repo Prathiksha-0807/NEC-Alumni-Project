@@ -30,6 +30,7 @@ export default function WebinarDetails() {
     venue: '',
     meetingLink: '',
     alumniCity: '',
+    status: 'planned',
     speaker: {
       name: '',
       email: '',
@@ -380,6 +381,7 @@ export default function WebinarDetails() {
                   venue: webinar.venue || '',
                   meetingLink: webinar.meetingLink || '',
                   alumniCity: webinar.alumniCity || '',
+                  status: webinar.status || 'planned',
                   speaker: {
                     name: webinar.speaker?.name || '',
                     email: webinar.speaker?.email || '',
@@ -549,6 +551,19 @@ export default function WebinarDetails() {
                   />
                 </div>
 
+                <div className="form-group">
+                  <label>Status</label>
+                  <select
+                    className="input-field"
+                    value={editForm.status}
+                    onChange={(e) => setEditForm({ ...editForm, status: e.target.value })}
+                  >
+                    <option value="planned">PLANNED</option>
+                    <option value="postponed">POSTPONED</option>
+                    <option value="conducted">COMPLETED</option>
+                  </select>
+                </div>
+
                 <div className="form-group" style={{ gridColumn: 'span 2', marginTop: '6px' }}>
                   <h3 style={{ fontWeight: 800, color: '#4b3f91' }}>Speaker Details</h3>
                 </div>
@@ -628,6 +643,7 @@ export default function WebinarDetails() {
                           venue: editForm.venue,
                           meetingLink: editForm.meetingLink,
                           alumniCity: editForm.alumniCity,
+                          status: editForm.status,
                           speaker: {
                             name: editForm.speaker.name,
                             email: editForm.speaker.email,

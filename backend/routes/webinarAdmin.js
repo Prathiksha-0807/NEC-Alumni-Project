@@ -17,7 +17,8 @@ router.put('/webinars/:webinarId/main', async (req, res) => {
       venue,
       meetingLink,
       alumniCity,
-      speaker
+      speaker,
+      status
     } = req.body || {};
 
     const Webinar = req.app.locals.Webinar;
@@ -38,6 +39,13 @@ router.put('/webinars/:webinarId/main', async (req, res) => {
     if (venue !== undefined) update.venue = venue;
     if (meetingLink !== undefined) update.meetingLink = meetingLink;
     if (alumniCity !== undefined) update.alumniCity = alumniCity;
+    if (status !== undefined) {
+      const normalizedStatus = String(status).trim().toLowerCase();
+      if (!['planned', 'conducted', 'postponed'].includes(normalizedStatus)) {
+        return res.status(400).json({ error: 'Invalid webinar status' });
+      }
+      update.status = normalizedStatus;
+    }
 
     // Speaker update (optional)
     if (speaker && webinarDoc.speaker) {
