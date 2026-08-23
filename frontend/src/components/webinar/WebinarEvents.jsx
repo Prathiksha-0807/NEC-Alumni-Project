@@ -768,7 +768,9 @@ export default function WebinarEvents() {
   // Compute isCoordinator status for parent component
   useEffect(() => {
     if (coordinators.length > 0 && userEmail) {
-      const coordinatorCheck = coordinators.some(coord => coord.email === userEmail);
+      const coordinatorCheck = coordinators.some(
+        coord => String(coord.email || '').trim().toLowerCase() === userEmail.trim().toLowerCase()
+      );
       setIsCoordinator(coordinatorCheck);
     }
   }, [coordinators, userEmail]);
