@@ -664,8 +664,8 @@ export default function WebinarEvents() {
           }) : 'TBD',
           registered: webinar.registeredCount || 0,
           attendedCount: webinar.attendedCount || 0,
-          domain: webinar.domain,
           status: getWebinarStatus(webinar.status),
+          domain: webinar.domain,
           speaker: {
             name: webinar.speaker?.name || 'TBD',
             designation: webinar.speaker?.designation || 'TBD',
@@ -929,7 +929,7 @@ export default function WebinarEvents() {
           {/* Right Side - Content */}
           <div className="webinar-card-body">
             {canViewStatus && (
-              <span className={`webinar-status-badge webinar-status-${webinar.status.toLowerCase().replace(' ', '-')}`}>
+              <span className={`webinar-status-badge webinar-status-${webinar.status.toLowerCase()}`}>
                 {webinar.status}
               </span>
             )}
