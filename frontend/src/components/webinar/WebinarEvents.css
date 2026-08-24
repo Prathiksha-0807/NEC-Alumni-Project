@@ -47,12 +47,16 @@
 }
 
 @keyframes webinar-blob {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translate(0, 0) scale(1);
   }
+
   33% {
     transform: translate(30px, -50px) scale(1.1);
   }
+
   66% {
     transform: translate(-20px, 20px) scale(0.9);
   }
@@ -252,7 +256,7 @@
   background: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(15px);
   border-radius: 2rem;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
   border: 1px solid #e0cfff;
   padding: 1rem;
   position: relative;
@@ -471,7 +475,7 @@
   background: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(15px);
   border-radius: 2rem;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
   border: 1px solid #e0cfff;
   padding: 1.25rem;
 }
