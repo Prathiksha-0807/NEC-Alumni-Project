@@ -17,6 +17,13 @@ const API_BASE_URL = (
   import.meta.env.VITE_API_BASE_URL || (isLocalDev ? 'http://localhost:5000' : '/alumnimain')
 ).replace(/\/$/, '');
 
+const getWebinarStatus = (status) => {
+  const normalizedStatus = String(status || '').trim().toLowerCase();
+  if (normalizedStatus === 'conducted' || normalizedStatus === 'completed') return 'COMPLETED';
+  if (normalizedStatus === 'postponed') return 'POSTPONED';
+  return 'PLANNED';
+};
+
 export default function WebinarEvents() {
   const navigate = useNavigate();
   const [selectedWebinar, setSelectedWebinar] = useState(null);
@@ -657,6 +664,7 @@ export default function WebinarEvents() {
           }) : 'TBD',
           registered: webinar.registeredCount || 0,
           attendedCount: webinar.attendedCount || 0,
+          status: getWebinarStatus(webinar.status),
           domain: webinar.domain,
           speaker: {
             name: webinar.speaker?.name || 'TBD',
@@ -760,7 +768,9 @@ export default function WebinarEvents() {
   // Compute isCoordinator status for parent component
   useEffect(() => {
     if (coordinators.length > 0 && userEmail) {
-      const coordinatorCheck = coordinators.some(coord => coord.email === userEmail);
+      const coordinatorCheck = coordinators.some(
+        coord => String(coord.email || '').trim().toLowerCase() === userEmail.trim().toLowerCase()
+      );
       setIsCoordinator(coordinatorCheck);
     }
   }, [coordinators, userEmail]);
@@ -869,6 +879,7 @@ export default function WebinarEvents() {
     const isCertificateEnabled = webinar.attendedCount > 0;
     const isCoordinator = coordinators.some(coord => coord.email === userEmail);
     const canUpload = isCoordinator || isAdmin;
+    const canViewStatus = !userEmail || isCoordinator || isAdmin;
     const isOnlineLink = Boolean(webinar.joinLink);
 
     console.log('Rendering WebinarCard for webinar:', webinar.title, 'userEmail:', userEmail, 'isCoordinator:', isCoordinator, 'isAdmin:', isAdmin, 'canUpload:', canUpload);
@@ -919,6 +930,11 @@ export default function WebinarEvents() {
 
           {/* Right Side - Content */}
           <div className="webinar-card-body">
+            {canViewStatus && (
+              <span className={`webinar-status-badge webinar-status-${webinar.status.toLowerCase()}`}>
+                {webinar.status}
+              </span>
+            )}
             {/* Title and Badge */}
             <div className="mb-2">
               <h3 className="webinar-card-title">{webinar.title}</h3>
